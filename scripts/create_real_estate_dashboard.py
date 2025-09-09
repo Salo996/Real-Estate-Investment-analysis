@@ -398,9 +398,20 @@ class RealEstateAnalyzer:
         tier_counts = cash_flow_tiers.value_counts()
         
         colors = ['red', 'orange', 'lightgreen', 'darkgreen']
-        wedges, texts, autotexts = ax2.pie(tier_counts.values, labels=tier_counts.index, 
-                                          colors=colors, autopct='%1.1f%%', startangle=90)
+        wedges, texts, autotexts = ax2.pie(tier_counts.values, labels=None, 
+                                          colors=colors, autopct='%1.1f%%', startangle=90,
+                                          pctdistance=0.85)
+        
+        # Create custom legend with proper spacing
+        legend_labels = [f'{label}: {count} properties' for label, count in tier_counts.items()]
+        ax2.legend(wedges, legend_labels, loc='center left', bbox_to_anchor=(1, 0.5))
         ax2.set_title('Cash Flow Distribution\n(Investment Quality Tiers)', fontweight='bold')
+        
+        # Improve text properties
+        for autotext in autotexts:
+            autotext.set_color('white')
+            autotext.set_fontweight('bold')
+            autotext.set_fontsize(10)
         
         # 3. Geographic Diversification
         state_counts = df['state'].value_counts().head(8)
