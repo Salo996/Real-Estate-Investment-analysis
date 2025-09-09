@@ -25,7 +25,7 @@ sns.set_palette("husl")
 class RealEstateAnalyzer:
     def __init__(self):
         """Initialize the Real Estate Analyzer with API configurations"""
-        self.db_name = '../data/real_estate.db'
+        self.db_name = 'data/real_estate.db'
         self.setup_database()
         
     def setup_database(self):
@@ -56,11 +56,11 @@ class RealEstateAnalyzer:
         
         conn.commit()
         conn.close()
-        print("✅ Database initialized successfully")
+        print("[OK] Database initialized successfully")
         
     def fetch_sample_data(self):
         """Generate sample real estate data for demonstration purposes"""
-        print("📊 Generating sample real estate data...")
+        print("[INFO] Generating sample real estate data...")
         
         # Sample data generation (in production, this would call real APIs)
         np.random.seed(42)
@@ -141,12 +141,12 @@ class RealEstateAnalyzer:
         df.to_sql('properties', conn, if_exists='replace', index=False)
         conn.close()
         
-        print(f"✅ Generated {len(properties)} sample properties across {len(cities)} cities")
+        print(f"[OK] Generated {len(properties)} sample properties across {len(cities)} cities")
         return df
     
     def create_investment_dashboard(self, df):
         """Create comprehensive real estate investment analysis dashboard"""
-        print("📈 Creating Real Estate Investment Dashboard...")
+        print("[INFO] Creating Real Estate Investment Dashboard...")
         
         # Set up the figure with subplots
         fig = plt.figure(figsize=(20, 16))
@@ -337,11 +337,11 @@ class RealEstateAnalyzer:
         
         Total Properties Analyzed: {total_properties:,}
         
-        💰 Average Property Price: ${avg_price:,.0f}
+        [PRICE] Average Property Price: ${avg_price:,.0f}
         
-        📈 Average Cap Rate: {avg_cap_rate:.1f}%
+        [METRIC] Average Cap Rate: {avg_cap_rate:.1f}%
         
-        💵 Positive Cash Flow Properties: {positive_cash_flow}
+        [CASH] Positive Cash Flow Properties: {positive_cash_flow}
            ({cash_flow_rate:.1f}% of total)
         
         🏆 Top Performing State: {opportunity_data['investment_score'].idxmax()}
@@ -362,10 +362,10 @@ class RealEstateAnalyzer:
         plt.subplots_adjust(top=0.93, hspace=0.3, wspace=0.3)
         
         # Save dashboard
-        dashboard_path = '../visualizations/real_estate_dashboard.png'
+        dashboard_path = 'images/dashboards/real_estate_dashboard.png'
         plt.savefig(dashboard_path, dpi=300, bbox_inches='tight', 
                    facecolor='white', edgecolor='none')
-        print(f"✅ Dashboard saved: {dashboard_path}")
+        print(f"[OK] Dashboard saved: {dashboard_path}")
         
         # Create executive summary
         self.create_executive_summary(df, opportunity_data)
@@ -464,16 +464,16 @@ class RealEstateAnalyzer:
         plt.tight_layout()
         
         # Save executive summary
-        summary_path = '../visualizations/real_estate_executive_summary.png'
+        summary_path = 'images/dashboards/real_estate_executive_summary.png'
         plt.savefig(summary_path, dpi=300, bbox_inches='tight',
                    facecolor='white', edgecolor='none')
-        print(f"✅ Executive Summary saved: {summary_path}")
+        print(f"[OK] Executive Summary saved: {summary_path}")
         
         plt.show()
 
 def main():
     """Main execution function"""
-    print("🏠 Real Estate Investment Analysis Platform")
+    print("Real Estate Investment Analysis Platform")
     print("=" * 50)
     
     # Initialize analyzer
@@ -485,13 +485,13 @@ def main():
     # Create comprehensive dashboard
     analyzer.create_investment_dashboard(df)
     
-    print("\n🎉 Real Estate Investment Analysis Complete!")
+    print("\n[SUCCESS] Real Estate Investment Analysis Complete!")
     print("=" * 50)
-    print("📂 Files created:")
+    print("[FILES] Files created:")
     print("   • ../data/real_estate.db (SQLite database)")
-    print("   • ../visualizations/real_estate_dashboard.png")
-    print("   • ../visualizations/real_estate_executive_summary.png")
-    print("\n💡 Next steps:")
+    print("   • images/dashboards/real_estate_dashboard.png")
+    print("   • images/dashboards/real_estate_executive_summary.png")
+    print("\n[INFO] Next steps:")
     print("   • Run SQL queries in ../sql-queries/ directory")
     print("   • Analyze results and refine investment strategy")
     print("   • Apply findings to real-world investment decisions")
